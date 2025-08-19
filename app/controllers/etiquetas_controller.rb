@@ -18,8 +18,6 @@ def index
 end
 
 
-
-
   def show
     nomes = @etiqueta.partes.pluck(:nome)
     @etiquetas_para_imprimir = []
