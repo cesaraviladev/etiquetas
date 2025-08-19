@@ -1,0 +1,42 @@
+<div class="container py-2">
+  <h1>Lista de Etiquetas</h1>
+
+  <div class="row g-2 mb-3">
+    <div class="col-auto">
+      <%= form_with url: etiquetas_path, method: :get, local: true, class: "d-flex" do %>
+        <%= text_field_tag :q, params[:q], placeholder: "Pesquisar por tipo ou data (DD/MM/YYYY)", class: "form-control me-2" %>
+        <%= submit_tag "Pesquisar", class: "btn btn-primary me-2" %>
+        <%= link_to "Todas", etiquetas_path, class: "btn btn-secondary" %>
+      <% end %>
+    </div>
+  </div>
+
+  <%= link_to "Nova Etiqueta", new_etiqueta_path, class: "btn btn-success mb-3" %>
+
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Data</th>
+        <th>Tipo</th>
+        <th>Qtd</th>
+        <th>Isento</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @etiquetas.each do |et| %>
+        <tr>
+          <td><%= et.data_emissao.strftime("%d/%m/%Y") %></td>
+          <td><%= et.tipo %></td>
+          <td><%= et.quantidade %></td>
+          <td><%= et.isento ? "Sim" : "Não" %></td>
+          <td>
+            <%= link_to "Ver / Reimprimir", et, class: "btn btn-sm btn-info" %>
+            <%= link_to "Editar", edit_etiqueta_path(et), class: "btn btn-sm btn-warning" %>
+            <%= link_to "Excluir", et, data: { turbo_method: :delete, turbo_confirm: "Excluir?" }, class: "btn btn-sm btn-danger" %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

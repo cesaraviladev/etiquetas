@@ -1,0 +1,23 @@
+<div class="container py-2">
+  <h1>Impressão da Etiqueta</h1>
+
+  <% @etiquetas_para_imprimir.each_with_index do |grupo, index| %>
+    <div class="border p-3 mb-3" style="width: 300px;">
+      <p><strong>Reconheço por <%= @etiqueta.tipo %> a(s) firma(s) de:</strong></p>
+      
+      <% grupo.each do |nome| %>
+        <p><%= nome %></p>
+      <% end %>
+
+      <p>Pará de Minas, <%= @etiqueta.data_emissao.strftime("%d/%m/%Y") %>.</p>
+
+      <% if @etiqueta.isento %>
+        <p><strong>Isento de emolumentos</strong></p>
+      <% else %>
+        <p><strong>Emolumento cobrado</strong></p>
+      <% end %>
+    </div>
+  <% end %>
+
+  <%= link_to "Voltar", etiquetas_path, class: "btn btn-secondary" %>
+</div>

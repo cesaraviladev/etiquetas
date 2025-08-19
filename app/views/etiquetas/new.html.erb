@@ -1,0 +1,9 @@
+<% content_for :head do %>
+  <meta name="turbo-cache-control" content="no-cache">
+<% end %>
+
+<div class="container py-2">
+  <h1>Nova Etiqueta</h1>
+  <%= render "form", etiqueta: @etiqueta %>
+  <%= link_to "Voltar", etiquetas_path, class: "btn btn-secondary mt-3" %>
+</div>

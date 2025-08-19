@@ -1,0 +1,116 @@
+<%= form_with(model: etiqueta, local: true, class: "mt-4") do |form| %>
+  <% if etiqueta.errors.any? %>
+    <div class="alert alert-danger">
+      <h4>Erros:</h4>
+      <ul>
+        <% etiqueta.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="mb-3">
+    <%= form.label :data_emissao, class: "form-label" %>
+    <%= form.date_field :data_emissao, class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :tipo, class: "form-label" %>
+    <%= form.select :tipo, ["Autenticidade", "Semelhança"], {}, class: "form-select" %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :quantidade, class: "form-label" %>
+    <%= form.number_field :quantidade, class: "form-control" %>
+  </div>
+
+  <div class="form-check mb-3">
+    <%= form.check_box :isento, class: "form-check-input" %>
+    <%= form.label :isento, "Isento de emolumentos", class: "form-check-label" %>
+  </div>
+
+  <h5>Partes</h5>
+  <div id="partes">
+    <%= form.fields_for :partes do |parte_form| %>
+      <div class="row mb-2 parte-fields">
+        <div class="col-md-5">
+          <%= parte_form.text_field :nome, placeholder: "Nome", class: "form-control" %>
+        </div>
+        <div class="col-md-4">
+          <%= parte_form.text_field :cpf, placeholder: "CPF", class: "form-control" %>
+        </div>
+        <div class="col-md-3">
+          <button type="button" class="btn btn-danger remove-parte">Remover</button>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+  <button type="button" id="add-parte" class="btn btn-primary mb-3">Adicionar Parte</button>
+
+  <div class="mt-3">
+    <%= form.submit class: "btn btn-success" %>
+  </div>
+<% end %>
+
+<script>
+document.addEventListener("turbo:load", () => {
+  const partesDiv = document.getElementById("partes");
+  const addButton = document.getElementById("add-parte");
+
+  if (!partesDiv || !addButton) return;
+
+  // 🔹 Remove listeners antigos para evitar múltiplos disparos
+  const newAddButton = addButton.cloneNode(true);
+  addButton.parentNode.replaceChild(newAddButton, addButton);
+
+  newAddButton.addEventListener("click", () => {
+    const index = partesDiv.querySelectorAll(".parte-fields").length;
+    const template = `
+      <div class="row mb-2 parte-fields">
+        <div class="col-md-5">
+          <input type="text" name="etiqueta[partes_attributes][${index}][nome]" placeholder="Nome" class="form-control" />
+        </div>
+        <div class="col-md-4">
+          <input type="text" name="etiqueta[partes_attributes][${index}][cpf]" placeholder="CPF" class="form-control" />
+        </div>
+        <div class="col-md-3">
+          <button type="button" class="btn btn-danger remove-parte">Remover</button>
+        </div>
+      </div>
+    `;
+    partesDiv.insertAdjacentHTML("beforeend", template);
+  });
+
+  partesDiv.addEventListener("click", (e) => {
+    if (e.target.classList.contains("remove-parte")) {
+      e.target.closest(".parte-fields").remove();
+    }
+  });
+});
+
+
+document.addEventListener("turbo:load", () => {
+  // Função para formatar CPF
+  function formatCPF(value) {
+    value = value.replace(/\D/g, "");           // Remove tudo que não é número
+    value = value.replace(/(\d{3})(\d)/, "$1.$2"); // Adiciona primeiro ponto
+    value = value.replace(/(\d{3})(\d)/, "$1.$2"); // Adiciona segundo ponto
+    value = value.replace(/(\d{3})(\d{1,2})$/, "$1-$2"); // Adiciona traço
+    return value;
+  }
+
+  // Aplica a máscara em todos os campos CPF atuais e futuros
+  const partesDiv = document.getElementById("partes");
+
+  if (!partesDiv) return;
+
+  partesDiv.addEventListener("input", (e) => {
+    if (e.target.matches("input[name*='cpf']")) {
+      e.target.value = formatCPF(e.target.value);
+    }
+  });
+});
+
+</script>
