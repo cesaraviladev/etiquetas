@@ -1,0 +1,26 @@
+<div class="container d-flex justify-content-center align-items-center vh-100">
+  <div class="card shadow-lg p-4" style="max-width: 400px; width: 100%;">
+    <h2 class="card-title text-center mb-4">Recuperar Senha</h2>
+
+    <p class="text-center text-muted mb-4">
+      Digite seu e-mail para receber as instruções de redefinição de senha.
+    </p>
+
+    <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
+      <%= devise_error_messages! %>
+
+      <div class="mb-3">
+        <%= f.label :email, "Email cadastrado", class: "form-label" %>
+        <%= f.email_field :email, autofocus: true, class: "form-control", placeholder: "seu@email.com" %>
+      </div>
+
+      <div class="d-grid">
+        <%= f.submit "Enviar instruções", class: "btn btn-primary btn-lg" %>
+      </div>
+    <% end %>
+
+    <div class="text-center mt-3">
+      <%= link_to "Voltar para login", new_session_path(resource_name), class: "text-decoration-none" %>
+    </div>
+  </div>
+</div>

@@ -1,8 +1,9 @@
 class EtiquetasController < ApplicationController
-  before_action :set_etiqueta, only: %i[show edit update destroy]
+before_action :authenticate_user!
+before_action :set_etiqueta, only: %i[show edit update destroy]
 
 def index
-  @etiquetas = Etiqueta.all.order(created_at: :desc)
+  @etiquetas = current_user.etiquetas.order(created_at: :desc)
 
   if params[:q].present?
     query = params[:q].strip
@@ -41,7 +42,7 @@ end
 
 
   def create
-    @etiqueta = Etiqueta.new(etiqueta_params)
+    @etiqueta = current_user.etiquetas.new(etiqueta_params)
     if @etiqueta.save
       redirect_to @etiqueta, notice: "Etiqueta criada com sucesso."
     else
@@ -68,7 +69,7 @@ end
   private
 
   def set_etiqueta
-    @etiqueta = Etiqueta.find(params[:id])
+    @etiqueta = current_user.etiquetas.find(params[:id])
   end
 
   def etiqueta_params
