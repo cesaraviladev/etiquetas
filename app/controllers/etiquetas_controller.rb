@@ -51,7 +51,10 @@ end
   end
 
   def edit
+  @etiqueta = Etiqueta.find(params[:id])
+  @etiqueta.partes.build if @etiqueta.partes.empty?
   end
+
 
   def update
     if @etiqueta.update(etiqueta_params)
