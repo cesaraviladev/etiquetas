@@ -1,20 +1,22 @@
 <div class="container py-2">
   <h1>Impressão da Etiqueta</h1>
 
-  <% @etiquetas_para_imprimir.each_with_index do |grupo, index| %>
+  <% @etiquetas_para_imprimir.each do |grupo| %>
     <div class="border p-3 mb-3" style="width: 300px;">
-      <p><strong>Reconheço por <%= @etiqueta.tipo %> a(s) firma(s) de:</strong></p>
-      
-      <% grupo.each do |nome| %>
-        <p><%= nome %></p>
+      <%= show_for @etiqueta do |s| %>
+        <%= s.attribute :tipo %>
+
+        <%= s.attribute :data_emissao, label: "Data de emissão" do %>
+          <%= @etiqueta.data_emissao.strftime("%d/%m/%Y") %>
+        <% end %>
+
+        <%= s.attribute :isento, label: "Emolumentos" do %>
+          <%= @etiqueta.isento ? "Isento de emolumentos" : "Emolumento cobrado" %>
+        <% end %>
       <% end %>
 
-      <p>Pará de Minas, <%= @etiqueta.data_emissao.strftime("%d/%m/%Y") %>.</p>
-
-      <% if @etiqueta.isento %>
-        <p><strong>Isento de emolumentos</strong></p>
-      <% else %>
-        <p><strong>Emolumento cobrado</strong></p>
+      <% grupo.each do |nome| %>
+        <p><%= nome %></p>
       <% end %>
     </div>
   <% end %>

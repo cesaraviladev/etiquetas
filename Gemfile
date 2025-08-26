@@ -22,6 +22,9 @@ gem "jbuilder"
 #Simple Form
 gem 'simple_form', '~> 5.3'
 
+#Show_for
+gem "show_for", "~> 0.7.0"
+
 
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
 # gem "bcrypt", "~> 3.1.7"
