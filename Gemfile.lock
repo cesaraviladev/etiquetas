@@ -312,9 +312,9 @@ GEM
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 4.0)
       websocket (~> 1.0)
-    show_for (0.7.0)
-      actionpack (>= 5.0)
-      activemodel (>= 5.0)
+    show_for (0.8.1)
+      actionpack (>= 5.2)
+      activemodel (>= 5.2)
     simple_form (5.3.1)
       actionpack (>= 5.2)
       activemodel (>= 5.2)
@@ -405,7 +405,7 @@ DEPENDENCIES
   rails (~> 8.0.2)
   rubocop-rails-omakase
   selenium-webdriver
-  show_for (~> 0.7.0)
+  show_for (~> 0.8.1)
   simple_form (~> 5.3)
   solid_cable
   solid_cache
