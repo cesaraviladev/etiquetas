@@ -10,18 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_08_20_221313) do
+ActiveRecord::Schema[8.0].define(version: 2025_09_02_223126) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
   create_table "etiquetas", force: :cascade do |t|
     t.date "data_emissao"
-    t.string "tipo"
     t.integer "quantidade"
     t.boolean "isento"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "user_id", null: false
+    t.integer "tipo", default: 0, null: false
     t.index ["user_id"], name: "index_etiquetas_on_user_id"
   end
 
