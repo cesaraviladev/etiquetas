@@ -21,7 +21,7 @@ gem "jbuilder"
 
 gem "simple_form", '~> 5.3'
 
-gem "show_for", "~> 0.7.0"
+gem "show_for", "~> 0.9.0"
 
 gem "enumerate_it"
 
