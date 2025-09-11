@@ -33,3 +33,20 @@ pt-BR:
       create: "Salvar %{model}"
       update: "Atualizar %{model}"
       submit: "Salvar %{model}"
+
+  enumerations:
+    tipo_etiqueta:
+      autenticidade: "Autenticidade"
+      semelhanca: "Semelhança"
+  
+  activerecord:
+    attributes:
+      etiqueta:
+        tipo: "Tipo"
+    models:
+      etiqueta: "Etiqueta"
+
+  errors:
+    messages:
+      blank: "não pode ficar em branco"
+      inclusion: "não está incluído na lista"
