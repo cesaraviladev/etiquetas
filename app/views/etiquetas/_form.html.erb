@@ -2,7 +2,7 @@
   <%= render "shared/error_messages", object: @etiqueta %>
 
   <%= f.input :data_emissao, as: :string, input_html: { type: "date" } %>
-  <%= f.input :tipo, collection: Etiqueta.tipos.keys.map { |t| [t.humanize, t] }, prompt: "Selecione o tipo" %>
+  <%= f.input :tipo, collection: TipoEtiqueta.to_a, prompt: "Selecione o tipo" %>
   <%= f.input :quantidade, as: :integer %>
   <%= f.input :isento, as: :boolean, label: "Isento de emolumentos" %>
 
